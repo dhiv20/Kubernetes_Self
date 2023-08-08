@@ -1,4 +1,5 @@
-#It will create a job in a container. That job will give an output. After the ojob is completed the container would turn off.
+#It will create a job in a container. That job will give an output. After the job is completed the container would turn off.
+#Only single pod will be created with status completed i.e. "job is done".
 #We can see the output by : kubectl logs <podname> in terminal.
 #To see jobs running : kubectl get jobs 
 #To delete the jobs : kubectl delete job <jobname>
