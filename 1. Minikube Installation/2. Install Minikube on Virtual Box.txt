@@ -1,0 +1,163 @@
+Install Curl
+
+apt-get install curl
+======================================================================================================
+
+
+Install VirtualBox
+
+If you haven’t yet installed any of supported drivers, i suggest to install VirtualBox (5.2 or higher) to deploy Minikube on Ubuntu as a VM:
+
+$ sudo apt install virtualbox virtualbox-ext-pack
+  	# click tab then onter ok # Then click yes #
+
+=======================================================================================================
+Install Docker
+
+wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installDocker.sh -P /tmp
+       
+sudo bash /tmp/installDocker.sh
+
+=======================================================================================================
+
+Install Conntrack
+
+sudo apt-get install -y conntrack
+
+======================================================================================================
+
+Install Crictl
+
+
+#Then in the next step, you need to download the tar package from Github by using below wget command. This will download the package in your local directory of your System.
+
+
+wget https://github.com/kubernetes-sigs/cri-tools/releases/download/v1.26.0/crictl-v1.26.0-linux-amd64.tar.gz
+
+#The tar package basically contains the crictl binary utility which you need to extract and keep it in /usr/local/bin directory so that it can be detected by the system. This can be done by using sudo tar zxvf crictl-v1.26.0-linux-amd64.tar.gz -C /usr/local/bin command as shown below.
+
+
+sudo tar zxvf crictl-v1.26.0-linux-amd64.tar.gz -C /usr/local/bin
+
+sudo install crictl-v1.26.0-linux-amd64.tar.gz -C /usr/local/bin
+
+crictl --version
+
+=======================================================================================================
+
+## Install CRI-Dockerd
+
+
+wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installCRIDockerd.sh -P /tmp
+
+sudo bash /tmp/installCRIDockerd.sh
+
+OR, 
+
+
+sudo wget https://raw.githubusercontent.com/lerndevops/labs/master/scripts/installCRIDockerd.sh -P /tmp
+
+sudo chmod 755 /tmp/installCRIDockerd.sh
+
+sudo bash /tmp/installCRIDockerd.sh
+
+sudo systemctl restart cri-docker.service
+
+
+
+======================================================================================================
+Install Minikube
+
+To install Minikube on Unubtu you just need to download and copy the binary to /usr/local/bin/ with the appropriate permissions:
+
+$ curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64
+$ sudo install minikube-linux-amd64 /usr/local/bin/minikube
+$ minikube version 
+   
+	O/P :: minikube version: v1.31.1
+		commit: fd3f3801765d093a485d255043149f92ec0a695f
+
+======================================================================================================
+
+
+Install Kubectl
+
+To deploy and manage a local Minikube cluster it is also required to install kubectl – the official command-line tool for Kubernetes:
+
+$ curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+$ sudo install kubectl /usr/local/bin/kubectl
+$ kubectl version --client -o json 
+ 
+		O/P:: {
+  			"clientVersion": {
+   			 "major": "1",
+   			 "minor": "27",
+   			 "gitVersion": "v1.27.4",
+   			 "gitCommit": "fa3d7990104d7c1f16943a67f11b154b71f6a132",
+   			 "gitTreeState": "clean",
+   			 "buildDate": "2023-07-19T12:20:54Z",
+  			  "goVersion": "go1.20.6",
+  			  "compiler": "gc",
+  			  "platform": "linux/amd64"
+  				},
+  			"kustomizeVersion": "v5.0.1"
+				}
+
+======================================================================================================
+
+Network Plugins
+
+wget https://github.com/containernetworking/plugins/releases/download/v1.3.0/cni-plugins-linux-amd64-v1.3.0.tgz
+
+
+sudo tar zxvf cni-plugins-linux-amd64-v1.3.0.tgz -C /usr/local/bin
+
+sudo install cni-plugins-linux-amd64-v1.3.0.tgz -C /usr/local/bin
+
+
+======================================================================================================
+
+Start Minikube
+ 
+minikube start --vm-driver=none
+
+
+     troubleshooting: 
+
+	 ## below installs calico and weave networking driver
+
+
+	kubectl apply -f https://raw.githubusercontent.com/projectcalico/calico/v3.24.1/manifests/calico.yaml
+
+
+	kubectl apply -f https://github.com/weaveworks/weave/releases/download/v2.8.1/weave-daemonset-k8s.yaml
+
+	
+	kubectl apply -f "https://cloud.weave.works/k8s/net?k8s-version=$(kubectl version | base64 | tr -d '\n')"
+
+
+
+
+OR;
+
+calico yml file from notepad
+
+
+	nano calico.yml
+		#paste the content from notepad
+
+	kubectl apply -f calico.yml
+
+
+
+
+
+ -------------------------------------------------------------------------------------------------------------------   
+     
+              sudo sysctl fs.protected_regular=0
+
+			kubectl taint nodes --all node-role.kubernetes.io/master-
+
+
+
+

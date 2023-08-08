@@ -1,0 +1,22 @@
+#this script will help us to enable ingress
+#host name is hello-world-2.info and paths are / and /v2 . / will redirect to web service pod. /v2 will redirect to web2 service pod.
+apiVersion: networking.k8s.io/v1beta1
+kind: Ingress
+metadata:
+  name: example-ingress-2
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$1
+spec:
+  rules:
+    - host: hello-world-2.info
+      http:
+        paths:
+          - path: /
+            backend:
+              serviceName: web
+              servicePort: 8080
+
+          - path: /v2
+            backend:
+              serviceName: web2
+              servicePort: 8080

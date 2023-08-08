@@ -1,0 +1,34 @@
+Please use ubuntu 18.04 - in aws t2.medium - min 2vpcu and 4 to 8GB ram
+
+- apt-get update
+
+- apt-get install docker.io -y
+
+- curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/amd64/kubectl
+	 (This command installs kubectl and other libraries from google)
+
+- chmod +x ./kubectl
+ 	(giving kubectl execute permissions)
+
+- sudo mv ./kubectl /usr/local/bin/kubectl
+ 	(moving kubectl to the /local/bin directory)
+
+- kubectl version --client -o json
+ 	(it will tell us the version -goVersion-)
+
+- curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube_1.6.2.deb  && sudo dpkg -i minikube_1.6.2.deb
+ 	(it will get us the minikube package --download and install--)
+
+- sudo minikube config set vm-driver none
+ 	(minikube will use default drivers)
+
+- sudo minikube start &  
+	 (& means that minikube will run in background)
+
+- sudo minikube status
+
+	( host: Running
+	kubelet: Running
+	apiserver: Running
+	kubeconfig: Configured )
+=====================================================================

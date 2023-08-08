@@ -1,0 +1,22 @@
+#Crontab is used for scheduling the jobs etc. When we want to achieve specific tasks at a particular time. It was also used in jenkins and github to schedule the jobs by looking at particular intervals for new commits etc.
+#Every minute use image busybox, create a pod and go to shell script and execute the commands mentioned. A job will be created for it.
+#Use command to see cron-jobs : kubectl get cronjobs
+#Use the command to delete cron-jobs : kubectl delete cronjobs <jobname>
+apiVersion: batch/v1beta1
+kind: CronJob
+metadata:
+  name: timer
+spec:
+  schedule: "*/1 * * * *"
+  jobTemplate:
+    spec:
+      template:
+        spec:
+          containers:
+          - name: timer
+            image: busybox
+            args:
+            - "bin/sh"
+            - "-c"
+            - "date; echo Hello from the Kubernetes cluster"
+          restartPolicy: OnFailure

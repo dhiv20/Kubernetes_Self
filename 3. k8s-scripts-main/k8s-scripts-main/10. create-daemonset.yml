@@ -1,0 +1,21 @@
+#daemon are background processes.
+#daemonset: when a new node is created we want certain services to be running like file service, dns service, web service etc.
+#We can use it for web server daemon and logs collection daemon on new nodes.
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  name: daemonset-pods
+spec:
+  selector:
+    matchLabels:
+      app: daemonset-pods
+  template:
+    metadata:
+      labels:
+        app: daemonset-pods
+    spec:
+      containers:
+      - name: daemonset-container
+        image: httpd:latest
+        ports:
+          - containerPort: 80

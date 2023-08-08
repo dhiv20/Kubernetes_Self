@@ -1,0 +1,12 @@
+#This will create a pod in defined namespace. The namespace has to be manually created first in k8s terminal. Then run this command.
+apiVersion: v1
+kind: Pod
+metadata:
+  name: springpeople-namespace1
+  namespace: springpeople
+spec:
+  containers:
+  - name: springpeople-container
+    image: jocatalin/kubernetes-bootcamp:v1
+    ports:
+      - containerPort: 8080

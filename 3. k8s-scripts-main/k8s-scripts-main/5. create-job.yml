@@ -1,0 +1,21 @@
+#It will create a job in a container. That job will give an output. After the ojob is completed the container would turn off.
+#We can see the output by : kubectl logs <podname> in terminal.
+#To see jobs running : kubectl get jobs 
+#To delete the jobs : kubectl delete job <jobname>
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: countdown
+spec:
+  template:
+    metadata:
+      name: countdown
+    spec:
+      containers:
+      - name: counter
+        image: centos:7
+        command:
+         - "bin/bash"
+         - "-c"
+         - "for i in 10 9 8 7 6 5 4 3 2 1; do echo $i ; done"
+      restartPolicy: Never

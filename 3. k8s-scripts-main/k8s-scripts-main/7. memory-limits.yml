@@ -1,0 +1,15 @@
+#It will create a pod from jenkins image. It will give custom memory limits to the container being run from this script.
+#To view the specification of the pods: kubectl describe pod <podname>
+apiVersion: v1
+kind: Pod
+metadata:
+  name: springpeople-memory
+spec:
+  containers:
+  - name: springpeople-container
+    image: jenkins/jenkins
+    resources:
+      limits:
+        memory: "400Mi"
+      requests:
+        memory: "200Mi"

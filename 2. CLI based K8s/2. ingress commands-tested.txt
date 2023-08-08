@@ -1,0 +1,41 @@
+minikube addons enable ingress (to enable ingress)
+
+kubectl get pods -n kube-system (to check ingress running)
+
+kubectl create deployment web --image=gcr.io/google-samples/hello-app:1.0    (for deploying google hello app with version 1.0 i.e images)
+
+kubectl get deployments
+
+kubectl expose deployment web --type=NodePort --port=8080  (service web will be exposed)
+
+kubectl get service web  (check the port number and open webpage using serverip:portnumber)
+
+minikube service web --url
+
+curl <output of above command IP>   (to get the output of service web on terminal)
+
+
+
+kubectl create deployment web2 --image=gcr.io/google-samples/hello-app:2.0    (for deploying google hello app with version 2.0 i.e videos)
+
+kubectl expose deployment web2 --port=8080 --type=NodePort
+
+kubectl get service web2
+
+minikube service web2 --url
+
+curl <output of above command IP> 
+
+
+
+#create example-ingress-2.yaml file then run below commands.# 
+
+kubectl apply -f example-ingress-2.yaml
+
+kubectl get ingress
+
+curl hello-world-2.info  or curl hello-world-2.info/v1
+
+curl hello-world-2.info/v2    
+
+"/v2" will take us to web2 pod whereas "/anything" eg-/v3 /v4 etc will take us to web pod.
