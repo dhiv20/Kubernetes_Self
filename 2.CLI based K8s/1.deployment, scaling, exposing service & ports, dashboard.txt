@@ -167,6 +167,21 @@ within portal : 10.96.184.16
 
 =====================================================================================================================================================
 
+
+# Create a new namespace named my-namespace:
+
+
+- kubectl create namespace my-namespace
+  --------------------------------------
+
+- kubectl get namespaces
+
+- kubectl get pods -n my-namespace
+
+- kubectl delete namespace my-namespace
+
+=====================================================================================================================================================
+
 ####### delete pods #######
 
 Dashboard -> deployments -> scale -> 2
